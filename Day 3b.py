@@ -11,7 +11,7 @@ fabric = Functions.read_file("Day3list.txt")
 #fabric = Functions.read_file("debug3.txt")
 chopped = []
 
-total = 0
+total = []
 for x in range (len(fabric)):
     chopped.append(fabric[x].split('@'))
     chopped[x][1] = chopped[x][1].split(":")
@@ -28,9 +28,9 @@ for a in range (len(chopped)):
     for x in range (int(chopped[a][1][1][1])):
         for y in range (int (chopped[a][1][1][0])):
             if sheet[x+chopped[a][1][0][1], y+chopped[a][1][0][0]] == 0:
-                sheet[x+chopped[a][1][0][1], y+chopped[a][1][0][0]] = 1
-            elif sheet[x+chopped[a][1][0][1], y+chopped[a][1][0][0]] == 1:
-                sheet[x+chopped[a][1][0][1], y+chopped[a][1][0][0]] = 2
+                sheet[x+chopped[a][1][0][1], y+chopped[a][1][0][0]] = chopped[0]
+            elif sheet[x+chopped[a][1][0][1], y+chopped[a][1][0][0]] != 0:
+                sheet[x+chopped[a][1][0][1], y+chopped[a][1][0][0]] = "x"
 
 """## convert your array into a dataframe
 df = pd.DataFrame (sheet)
@@ -42,9 +42,10 @@ filepath = 'sheet.xlsx'
 df.to_excel(filepath, index=False)"""
 
 print (sheet)
-for x in range (size):
-    for y in range (size):
-        if sheet.item((x,y)) == 2:
-            total = total + 1
+for a in range (len(chopped)):
+    for x in range (size):
+        for y in range (size):
+            if sheet.item((x,y)) == :
+                total = total + 1
 
 print (total)
