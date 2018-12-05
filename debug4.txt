@@ -1,0 +1,14 @@
+[1518-05-24 23:56] Guard #5 begins shift
+[1518-08-22 00:09] Guard #50 begins shift
+[1518-05-19 00:53] Guard #10 begins shift
+[1518-04-19 23:48] Guard #5 begins shift
+[1518-09-24 00:35] Guard #15 begins shift
+[1518-07-15 00:56] Guard #7 begins shift
+[1518-08-10 00:03] Guard #8 begins shift
+[1518-07-10 00:50] Guard #9 begins shift
+[1518-07-12 00:54] Guard #1 begins shift
+[1518-05-30 00:51] Guard #6 begins shift
+[1518-09-15 00:56] Guard #13 begins shift
+[1518-09-14 00:15] Guard #20 begins shift
+[1518-03-30 00:57] Guard #80 begins shift
+[1518-10-19 00:55] Guard #5 begins shift
