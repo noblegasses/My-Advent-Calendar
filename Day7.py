@@ -7,7 +7,8 @@ Created on Mon Dec 10 17:06:37 2018
 ################### Imports and Functions ###################
 import Functions as F
 def prep():#prepare the data for use
-    steps= F.read_file("Day7list.txt")
+    #steps= F.read_file("Day7list.txt")
+    steps= F.read_file("debug7.txt")
     for x in range(len(steps)):
         steps[x] = steps[x][5:]
         steps[x] = steps[x].strip(' can begin.')
@@ -32,6 +33,8 @@ def cleared(answer, possiblities):#removes items from the check list that have a
                     break
                 else:
                     repeat = False
+       if len(step)==0:
+           break   
        if repeat == False:
         break
     return possiblities
@@ -52,6 +55,8 @@ def options(possibilities,step):
                     break
                 else:
                     repeat= False
+        if len(step)==0:
+              break                  
         if repeat == False:
             break
     possibilities.sort()
@@ -83,11 +88,11 @@ step = prep()
 possiblities=[]
 possiblities[:] = F.alpha
 answer=[]
-[answer.append(0) for x in range(26)]
+[answer.append(0) for x in range(len(F.alpha))] 
 
 inprogress= True
 counter = 0
-for x in range(25):
+for x in range(len(F.alpha)-1):
     possiblities[:] = F.alpha
     possiblities = cleared(answer, possiblities)
     print("removed excess items")

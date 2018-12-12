@@ -8,6 +8,7 @@ Created on Mon Dec 10 17:06:37 2018
 import Functions as F
 def prep():#prepare the data for use
     steps= F.read_file("Day7list.txt")
+    #steps= F.read_file("debug7.txt")
     for x in range(len(steps)):
         steps[x] = steps[x][5:]
         steps[x] = steps[x].strip(' can begin.')
@@ -25,8 +26,6 @@ def cleared(answer, possiblities):#removes items from the check list that have a
            print ("help, im stuck at cleared")
            print (repeat)
            print (len(possiblities))
-       if len (answer)== 0 or len(possiblities) == 0:
-           repeat= False 
        for y in range (len(answer)): 
             for x in range (len(possiblities)):
                 if answer[y]==possiblities[x]:
@@ -35,6 +34,8 @@ def cleared(answer, possiblities):#removes items from the check list that have a
                     break
                 else:
                     repeat = False
+       if len (answer)== 0 or len(possiblities) == 0:
+           repeat= False
        if repeat == False:
         break
     return possiblities
@@ -47,8 +48,6 @@ def options(possibilities,step):
            print ("help, im stuck at options")
            print (possibilities)
            print (step)
-        if len(possibilities) == 0:
-            break
         for x in range(len (step)):
             for y in range(len (possibilities)):
                 if step[x][1]== possibilities[y]:
@@ -57,6 +56,8 @@ def options(possibilities,step):
                     break
                 else:
                     repeat= False
+        if len(possibilities) == 0 or len (step) == 0:
+            break
         if repeat == False:
             break
     possibilities.sort()
@@ -108,32 +109,35 @@ elf2 = Worker(2)
 elf3 = Worker(3)
 elf4 = Worker(4)
 elf5 = Worker(5)
-
 step = prep()
 possiblities=[]
 possiblities[:] = F.alpha
 answer=[]
 processed=[]
-[processed.append(0) for x in range(26)]
-[answer.append(0) for x in range(26)]
+[processed.append(0) for x in range(len(F.alpha))]
+[answer.append(0) for x in range(len(F.alpha))] 
 inprogress= True
 counter = 0
 while True :
-    possiblities[:] = F.alpha
+    """possiblities[:] = F.alpha
     possiblities = cleared(processed, possiblities)
     possiblities = options (possiblities, step)
+    
     #print("determined possible moves")
+    while(len (possiblities) != 0):
+        for x in range(len (workers)):
+            if workers[x].task == None and len (possiblities) != 0:
+                Worker.assign_job(workers[x],possiblities[0])
+                for y in range (len (F.alpha)):
+                    if possiblities[0] == F.alpha[y]:
+                        Worker.timer(workers[x],(y+61))
+                        print (str(counter) + ": elf"+ str(x) + " started task " + possiblities[0] )
+                for z in range (len(processed)):
+                    if processed[z] == 0:
+                        processed[z] = possiblities[0]
+                        break
+                possiblities.pop(0)"""
     for x in range(len (workers)):
-        if workers[x].task == None and len (possiblities) != 0:
-            Worker.assign_job(workers[x],possiblities[0])
-            for y in range (len (F.alpha)):
-                if possiblities[0] == F.alpha[y]:
-                    Worker.timer(workers[x],(y+61))
-            for z in range (len(processed)):
-                if processed[z] == 0:
-                    processed[z] = possiblities[0]
-                    break
-            possiblities.pop(0)
         if workers[x].time != None:
            Worker.timer(workers[x],(workers[x].time - 1))
         if workers[x].time != None and workers[x].time <= 0:
@@ -141,13 +145,33 @@ while True :
                 if answer[z]==0:
                     answer[z]= workers[x].task
                     break
+            print (str(counter) + ": elf"+ str(x) + " finished task " + workers[x].task )
             Worker.finished_job(workers[x])        
-    step=do_the_thing(answer, step)      
+    step=do_the_thing(answer, step)
+    possiblities[:] = F.alpha
+    possiblities = cleared(processed, possiblities)
+    possiblities = options (possiblities, step)
+    
+    #print("determined possible moves")
+    while(len (possiblities) != 0):
+        for x in range(len (workers)):
+            if workers[x].task == None and len (possiblities) != 0:
+                Worker.assign_job(workers[x],possiblities[0])
+                for y in range (len (F.alpha)):
+                    if possiblities[0] == F.alpha[y]:
+                        Worker.timer(workers[x],(y+60))
+                        print (str(counter) + ": elf"+ str(x) + " started task " + possiblities[0] )
+                for z in range (len(processed)):
+                    if processed[z] == 0:
+                        processed[z] = possiblities[0]
+                        break
+                possiblities.pop(0)
+    
     
     
     #print ("removed obstructing moves")
     #print (possiblities)
-    counter += 1
+    
     if counter > 1000000:
         print ("I may be stuck")
         print (answer)
@@ -155,10 +179,12 @@ while True :
         busycheck = [workers[x].busy == False for x in range (len(workers))]
         print (step)
         
-    if len(step)==0:
+    #print (all([answer[x] !=0 for x in range (len (answer))]))
+    if all([answer[x] !=0 for x in range (len (answer))]) == True:
         break
+    counter += 1
 
-for x in range(len (F.alpha)):
+"""for x in range(len (F.alpha)):
     for y in range (len (answer)):
         if answer[y] == F.alpha[x]:
             missingval= None
@@ -169,7 +195,12 @@ for x in range(len (F.alpha)):
     if missingval!= None:
         answer[-1]=F.alpha[missingval]
         break
-counter = counter + 60 + 4
+counter = counter + 60 + 4"""
+print (step)
+print (possiblities)
+print (processed)
+print (answer)
 print (counter)
 answer = ''.join(answer)
 print (answer)
+print (len (workers))

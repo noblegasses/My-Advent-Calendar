@@ -27,28 +27,27 @@ class Worker:
         self.time = time
 
 elf = Worker(1)
+elf1= Worker(2)
 possiblities = [] 
 possiblities [:] = F.alpha
 answer=[]
 processed=[]
-[processed.append(0) for x in range(26)]
-[answer.append(0) for x in range(26)] 
+[processed.append(0) for x in range(len(F.alpha))]
+[answer.append(0) for x in range(len(F.alpha))] 
 looping = True
 counter = 0
 while looping == True :
     counter += 1
-    if len(possiblities)== 0:
-        break
     #print (counter)
     #print (len(workers))
     for x in range(len (workers)):
-        print (workers[x].task)
+        print (answer)
         if workers[x].task == None and len (possiblities) != 0:
             Worker.assign_job(workers[x],possiblities[0])
             for y in range (len (F.alpha)):
                 print(possiblities[0]==F.alpha[y])
                 if possiblities[0] == F.alpha[y]:
-                    Worker.timer(workers[x],(y+61))
+                    Worker.timer(workers[x],(y+1))
                     print ("time " + str(1) + " = " + str(workers[0].time))
             for z in range (len(processed)):
                 if processed[z] == 0:
@@ -65,6 +64,9 @@ while looping == True :
                     answer[z]= workers[x].task
                     break
             Worker.finished_job(workers[x]) 
+    print (all([answer[x] !=0 for x in range (len (answer))]))
+    if all([answer[x] !=0 for x in range (len (answer))]) == True:
+        break
 print (counter)
-counter = counter + 26 + 60
-print (counter)
+#counter = counter + 26 + 60
+print ("".join(processed))
