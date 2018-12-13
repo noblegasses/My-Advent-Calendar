@@ -46,8 +46,17 @@ def Find_Child_Addr(paddr):
     if len (nodes[paddr].children) != 0:
         for x in range (len(nodes[paddr].children)):
             Node.add_child_addr(nodes[paddr],caddr,x)
-            caddr = Find_Child_Addr
+            caddr = Find_Child_Addr(caddr)
     return caddr
+def Node_Value(addr,value):
+    if len (nodes[addr].children) == 0:
+        value=value+sum(nodes[addr].metadata)
+    else:
+        for x in range (len(nodes[addr].metadata)):
+            if (nodes[addr].metadata[x] - 1) in range(len(nodes[addr].children)):
+                value = Node_Value(nodes[addr].children[nodes[addr].metadata[x] - 1], value)
+    return (value)
+                
 ########################### Main Code #########################################
 data=[0,0]
 for y in range (2):
@@ -55,7 +64,8 @@ for y in range (2):
     licence.pop(0)
 Write_Node(data [0],data[1])
 Find_Child_Addr(0)
+value = Node_Value(0,0)
 
 for x in range(len (nodes)):
     sumtotal = sumtotal + sum(nodes[x].metadata)
-print (sumtotal)
+print (value)
