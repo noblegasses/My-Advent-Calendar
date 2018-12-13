@@ -21,7 +21,6 @@ def cleared(answer, possiblities):#removes items from the check list that have a
     repeat= True
     while repeat==True:
        cycles +=1
-       #busycheck = [workers[x].busy == False for x in range (len(workers))]
        if cycles>(1000000) == True:
            print ("help, im stuck at cleared")
            print (repeat)
@@ -119,24 +118,6 @@ processed=[]
 inprogress= True
 counter = 0
 while True :
-    """possiblities[:] = F.alpha
-    possiblities = cleared(processed, possiblities)
-    possiblities = options (possiblities, step)
-    
-    #print("determined possible moves")
-    while(len (possiblities) != 0):
-        for x in range(len (workers)):
-            if workers[x].task == None and len (possiblities) != 0:
-                Worker.assign_job(workers[x],possiblities[0])
-                for y in range (len (F.alpha)):
-                    if possiblities[0] == F.alpha[y]:
-                        Worker.timer(workers[x],(y+61))
-                        print (str(counter) + ": elf"+ str(x) + " started task " + possiblities[0] )
-                for z in range (len(processed)):
-                    if processed[z] == 0:
-                        processed[z] = possiblities[0]
-                        break
-                possiblities.pop(0)"""
     for x in range(len (workers)):
         if workers[x].time != None:
            Worker.timer(workers[x],(workers[x].time - 1))
@@ -151,8 +132,6 @@ while True :
     possiblities[:] = F.alpha
     possiblities = cleared(processed, possiblities)
     possiblities = options (possiblities, step)
-    
-    #print("determined possible moves")
     while(len (possiblities) != 0):
         for x in range(len (workers)):
             if workers[x].task == None and len (possiblities) != 0:
@@ -169,9 +148,7 @@ while True :
     
     
     
-    #print ("removed obstructing moves")
-    #print (possiblities)
-    
+
     if counter > 1000000:
         print ("I may be stuck")
         print (answer)
@@ -184,18 +161,7 @@ while True :
         break
     counter += 1
 
-"""for x in range(len (F.alpha)):
-    for y in range (len (answer)):
-        if answer[y] == F.alpha[x]:
-            missingval= None
-            pos = x
-            break
-        else:
-            missingval = x
-    if missingval!= None:
-        answer[-1]=F.alpha[missingval]
-        break
-counter = counter + 60 + 4"""
+
 print (step)
 print (possiblities)
 print (processed)
