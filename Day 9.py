@@ -9,8 +9,8 @@ import Functions as F
 maxes = F.read_file("day9list.txt")
 maxes = maxes[0].strip(" points")
 maxes = maxes.split(" players; last marble is worth ")
-maxplayers= 13#int(maxes[0])
-maxmarbles= 7999#int(maxes[1])
+maxplayers= int(maxes[0])
+maxmarbles= int(maxes[1])*100
 circle = [0]
 player = []
 [player.append(0) for i in range (maxplayers)]
@@ -19,11 +19,12 @@ def Turn(current=-1, ID=0, Marble=1):
     if ID==maxplayers:
         ID = 0
     if Marble%23 == 0:
-        if current -7 != abs(current-7):
-            print(current - 7)
-        player[ID] =player[ID]+Marble+circle[current-7]
-        circle.pop(current-7)
-        current = current - 7
+        subtract= current -7
+        if subtract != abs(subtract):
+            subtract = len(circle) + subtract
+        player[ID] =player[ID]+Marble+circle[subtract]
+        circle.pop(subtract)
+        current = subtract
     else:
         if current >= len (circle)-1:
             current = -1
